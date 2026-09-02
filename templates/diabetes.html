@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}Chẩn Đoán Bệnh Tiểu Đường - Assignment 2{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">🩺 Chẩn Đoán Bệnh Tiểu Đường</h1>
+    <p class="page-subtitle">Nhập các thông số sinh hiệu y tế để kiểm tra và đánh giá nguy cơ mắc bệnh tiểu đường.</p>
+</div>
+
+<div class="grid-2">
+    <!-- Form Input Section -->
+    <div class="glass-card">
+        <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Thông Số Y Tế Khám Bệnh</h3>
+        
+        <form id="diabetesForm">
+            <div class="grid-2" style="gap: 1rem;">
+                <div class="form-group">
+                    <label class="form-label">Giới tính</label>
+                    <select name="gender" class="form-select" required>
+                        <option value="Female">Nữ (Female)</option>
+                        <option value="Male">Nam (Male)</option>
+                        <option value="Other">Khác (Other)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tuổi (Age)</label>
+                    <input type="number" name="age" class="form-control" value="45" min="1" max="100" required>
+                </div>
+            </div>
+
+            <div class="grid-2" style="gap: 1rem;">
+                <div class="form-group">
+                    <label class="form-label">Tiền sử Cao Huyết Áp</label>
+                    <select name="hypertension" class="form-select" required>
+                        <option value="0">Không có (No)</option>
+                        <option value="1">Có bị cao huyết áp (Yes)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tiền sử Bệnh Tim</label>
+                    <select name="heart_disease" class="form-select" required>
+                        <option value="0">Không có (No)</option>
+                        <option value="1">Có bệnh tim (Yes)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-2" style="gap: 0.75rem;">
+                <div class="form-group">
+                    <label class="form-label">Lịch sử Hút Thuốc</label>
+                    <select name="smoking_history" class="form-select" required>
+                        <option value="never">Chưa bao giờ hút (Never)</option>
+                        <option value="former">Đã từng hút và bỏ (Former)</option>
+                        <option value="current">Hiện tại đang hút (Current)</option>
+                        <option value="ever">Đã từng (Ever)</option>
+                        <option value="not current">Hiện tại không hút (Not current)</option>
+                        <option value="No Info">Không có thông tin (No Info)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Chỉ số BMI (kg/m²)</label>
+                    <input type="number" step="0.1" name="bmi" class="form-control" value="26.5" min="10" max="70" required>
+                </div>
+            </div>
+
+            <div class="grid-2" style="gap: 0.75rem;">
+                <div class="form-group">
+                    <label class="form-label">Chỉ số HbA1c (%)</label>
+                    <input type="number" step="0.1" name="HbA1c_level" class="form-control" value="6.5" min="3.5" max="9.0" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Đường huyết (mg/dL)</label>
+                    <input type="number" name="blood_glucose_level" class="form-control" value="140" min="70" max="300" required>
+                </div>
+            </div>
+
+            <button type="submit" id="btnSubmit" class="btn-submit" style="margin-top: 1rem;">
+                Dự Đoán Nguy Cơ Tiểu Đường
+            </button>
+        </form>
+    </div>
+
+    <!-- Output Dashboard Section -->
+    <div>
+        <div id="resultCard" class="result-card">
+            <div id="resBadge" class="badge"></div>
+            <h3 id="resTitle" style="font-size: 1.5rem; margin-bottom: 0.5rem;"></h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">Tỷ lệ xác suất nguy cơ mắc bệnh:</p>
+            <div id="resProbability" class="result-value"></div>
+            <div id="resDetails" class="result-details"></div>
+        </div>
+
+        <div class="glass-card" style="margin-top: 1.5rem;">
+            <h4 style="font-weight: 700; margin-bottom: 0.75rem; color: var(--accent-blue);">Thông Tin Tham Khảo Mô Hình:</h4>
+            <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; padding-left: 1.25rem;">
+                <li>Mô hình huấn luyện: <strong>Random Forest Classifier</strong>.</li>
+                <li>Tập dữ liệu: 100,000 quan sát khám sức khỏe thực tế.</li>
+                <li>Độ chính xác kiểm thử (Accuracy): <strong>&gt; 95.6%</strong>.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/diabetes.js') }}"></script>
+{% endblock %}

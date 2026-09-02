@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}Dự Đoán Giá Nhà Đất - Assignment 2{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">🏡 Dự Đoán Giá Nhà Đất Việt Nam</h1>
+    <p class="page-subtitle">Nhập các thuộc tính bất động sản để nhận kết quả định giá nhà đất chính xác theo mô hình Random Forest Regressor.</p>
+</div>
+
+<div class="grid-2">
+    <!-- Form Input Section -->
+    <div class="glass-card">
+        <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem;">Thuộc Tính Bất Động Sản</h3>
+        
+        <form id="housingForm">
+            <div class="grid-2" style="gap: 0.75rem;">
+                <div class="form-group">
+                    <label class="form-label">Diện tích (m²)</label>
+                    <input type="number" step="0.1" name="Area" class="form-control" value="80" min="10" max="2000" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Địa chỉ / Khu vực</label>
+                    <select name="Address" class="form-select" required>
+                        <option value="Dự án The Empire - Vinhomes Ocean Park 2, Xã Long Hưng, Văn Giang, Hưng Yên">Vinhomes Ocean Park 2, Hưng Yên</option>
+                        <option value="Dự án The Crown - Vinhomes Ocean Park 3, Xã Nghĩa Trụ, Văn Giang, Hưng Yên">Vinhomes Ocean Park 3, Hưng Yên</option>
+                        <option value="Đường Nguyễn Văn Khối, Phường 11, Gò Vấp, Hồ Chí Minh">Gò Vấp, TP. Hồ Chí Minh</option>
+                        <option value="Dự án Him Lam Thường Tín, Huyện Thường Tín, Hà Nội">Him Lam, Thường Tín, Hà Nội</option>
+                        <option value="Quận Cầu Giấy, Hà Nội">Quận Cầu Giấy, Hà Nội</option>
+                        <option value="Quận Nam Từ Liêm, Hà Nội">Quận Nam Từ Liêm, Hà Nội</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-2" style="gap: 0.75rem;">
+                <div class="form-group">
+                    <label class="form-label">Số tầng (Floors)</label>
+                    <input type="number" name="Floors" class="form-control" value="4" min="1" max="20" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Số phòng ngủ</label>
+                    <input type="number" name="Bedrooms" class="form-control" value="4" min="1" max="20" required>
+                </div>
+            </div>
+
+            <div class="grid-2" style="gap: 0.75rem;">
+                <div class="form-group">
+                    <label class="form-label">Số phòng tắm</label>
+                    <input type="number" name="Bathrooms" class="form-control" value="3" min="1" max="20" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Mặt tiền (m) [Tùy chọn]</label>
+                    <input type="number" step="0.1" name="Frontage" class="form-control" value="5">
+                </div>
+            </div>
+
+            <div class="grid-2" style="gap: 0.75rem;">
+                <div class="form-group">
+                    <label class="form-label">Đường vào (m) [Tùy chọn]</label>
+                    <input type="number" step="0.1" name="Access_Road" class="form-control" value="12">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Hướng nhà</label>
+                    <select name="House_direction" class="form-select">
+                        <option value="Đông - Nam">Đông - Nam</option>
+                        <option value="Đông - Bắc">Đông - Bắc</option>
+                        <option value="Tây - Nam">Tây - Nam</option>
+                        <option value="Tây - Bắc">Tây - Bắc</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Bắc">Bắc</option>
+                        <option value="Đông">Đông</option>
+                        <option value="Tây">Tây</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-2" style="gap: 0.75rem;">
+                <div class="form-group">
+                    <label class="form-label">Hướng ban công</label>
+                    <select name="Balcony_direction" class="form-select">
+                        <option value="Đông - Nam">Đông - Nam</option>
+                        <option value="Đông - Bắc">Đông - Bắc</option>
+                        <option value="Tây - Nam">Tây - Nam</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Bắc">Bắc</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tình trạng pháp lý</label>
+                    <select name="Legal_status" class="form-select">
+                        <option value="Have certificate">Sổ đỏ / Sổ hồng (Have certificate)</option>
+                        <option value="Sale contract">Hợp đồng mua bán (Sale contract)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid-2" style="gap: 0.75rem;">
+                <div class="form-group">
+                    <label class="form-label">Tình trạng nội thất</label>
+                    <select name="Furniture_state" class="form-select">
+                        <option value="Full">Nội thất đầy đủ (Full)</option>
+                        <option value="Basic">Nội thất cơ bản (Basic)</option>
+                    </select>
+                </div>
+                <div class="form-group" style="display: flex; align-items: flex-end;">
+                    <button type="submit" id="btnSubmit" class="btn-submit" style="margin-top: 0;">
+                        Tính Toán Định Giá Nhà
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Output Dashboard Section -->
+    <div>
+        <div id="resultCard" class="result-card">
+            <div class="badge badge-info">ĐỊNH GIÁ ƯỚC TÍNH</div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem; color: var(--text-secondary);">Giá trị tài sản dự tính:</h3>
+            <div id="resPrice" class="result-value" style="color: var(--accent-teal);">0 Tỷ VNĐ</div>
+            <div id="resDetails" class="result-details"></div>
+        </div>
+
+        <div class="glass-card" style="margin-top: 1.5rem;">
+            <h4 style="font-weight: 700; margin-bottom: 0.75rem; color: var(--accent-teal);">Thông Tin Mô Hình Hồi Quy:</h4>
+            <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; padding-left: 1.25rem;">
+                <li>Mô hình huấn luyện: <strong>Random Forest Regressor</strong>.</li>
+                <li>Quy mô dữ liệu: Hơn 30,000 bản ghi mua bán bất động sản thực tế tại Việt Nam.</li>
+                <li>Chỉ số R² Score: <strong>&gt; 0.85</strong>.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/housing.js') }}"></script>
+{% endblock %}

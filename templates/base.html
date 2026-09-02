@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Assignment 2 - AI & Machine Learning Platform{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">A2</div>
+                <span>Assignment 2 ML Hub</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/" class="nav-link {% if active_page == 'home' %}active{% endif %}">Trang Chủ</a></li>
+                <li><a href="/diabetes" class="nav-link {% if active_page == 'diabetes' %}active{% endif %}">🩺 Chẩn Đoán Tiểu Đường</a></li>
+                <li><a href="/housing" class="nav-link {% if active_page == 'housing' %}active{% endif %}">🏡 Dự Đoán Giá Nhà</a></li>
+                <li><a href="/ecomm" class="nav-link {% if active_page == 'ecomm' %}active{% endif %}">🛒 Phân Tích E-Commerce</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Assignment 2 - Machine Learning Website © 2026 | Optimized for Render (RAM &le; 500MB)</p>
+        </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>

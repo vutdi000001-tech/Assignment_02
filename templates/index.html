@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Trang Chủ - Assignment 2 ML Platform{% endblock %}
+
+{% block content %}
+<div class="glass-card" style="text-align: center; padding: 3rem 2rem;">
+    <h1 class="page-title" style="font-size: 2.75rem; margin-bottom: 1rem;">Nền Tảng Machine Learning Assignment 2</h1>
+    <p class="page-subtitle" style="font-size: 1.1rem; max-width: 800px; margin: 0 auto 2rem;">
+        Hệ thống tích hợp 3 mô hình học máy nâng cao dựa trên dữ liệu thực tế: Chẩn đoán y tế, Định giá bất động sản Việt Nam và Phân tích thái độ khách hàng Thương mại điện tử.
+    </p>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <span class="badge badge-info">Python 3.10+</span>
+        <span class="badge badge-info">Flask Server</span>
+        <span class="badge badge-info">Scikit-Learn Pipelines</span>
+        <span class="badge badge-info">Render Ready (&le;500MB RAM)</span>
+    </div>
+</div>
+
+<h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--text-primary);">Chọn 1 Trong 3 Dự Án Để Trải Nghiệm:</h2>
+
+<div class="grid-3">
+    <!-- Card 1: Diabetes -->
+    <div class="glass-card" style="margin-bottom: 0;">
+        <a href="/diabetes" class="project-card">
+            <div class="card-icon icon-diabetes">🩺</div>
+            <h3>Chẩn Đoán Bệnh Tiểu Đường</h3>
+            <p>Dự đoán nguy cơ mắc bệnh tiểu đường dựa trên các chỉ số y tế như độ tuổi, BMI, nồng độ đường huyết và mức HbA1c với mô hình Random Forest Classifier.</p>
+            <div class="card-footer">
+                <span>Thực hiện chẩn đoán</span> &rarr;
+            </div>
+        </a>
+    </div>
+
+    <!-- Card 2: Housing -->
+    <div class="glass-card" style="margin-bottom: 0;">
+        <a href="/housing" class="project-card">
+            <div class="card-icon icon-housing">🏡</div>
+            <h3>Dự Đoán Giá Nhà Đất Việt Nam</h3>
+            <p>Ước tính giá trị bất động sản chính xác dựa trên các thông số diện tích, vị trí địa lý, số tầng, số phòng ngủ/tắm và thông tin pháp lý.</p>
+            <div class="card-footer">
+                <span>Xem định giá nhà</span> &rarr;
+            </div>
+        </a>
+    </div>
+
+    <!-- Card 3: E-commerce -->
+    <div class="glass-card" style="margin-bottom: 0;">
+        <a href="/ecomm" class="project-card">
+            <div class="card-icon icon-ecomm">🛒</div>
+            <h3>Sở Thích & Đánh Giá E-Commerce</h3>
+            <p>Phân tích đánh giá sản phẩm của khách hàng (Sentiment Analysis) sử dụng TF-IDF Vectorizer và Logistic Regression để phân loại mức độ khuyên dùng.</p>
+            <div class="card-footer">
+                <span>Phân tích đánh giá</span> &rarr;
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock %}

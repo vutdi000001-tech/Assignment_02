@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Sở Thích & Đánh Giá E-Commerce - Assignment 2{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1 class="page-title">🛒 Phân Tích Đánh Giá & Sở Thích E-Commerce</h1>
+    <p class="page-subtitle">Nhập đoạn văn bản đánh giá sản phẩm (Tiếng Anh) để phân loại mức độ khuyên dùng (Recommended vs Not Recommended).</p>
+</div>
+
+<div class="grid-2">
+    <!-- Form Input Section -->
+    <div class="glass-card">
+        <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">Nhập Đánh Giá Sản Phẩm (Review Text)</h3>
+        
+        <div style="margin-bottom: 1rem;">
+            <span style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 0.5rem;">Thử mẫu nhanh:</span>
+            <button type="button" class="btn-sample" onclick="setSampleReview('I absolutely love this dress! The fit is perfect, the fabric is soft and comfortable. Highly recommend to everyone!')">👍 Mẫu Tích Cực (Positive)</button>
+            <button type="button" class="btn-sample" onclick="setSampleReview('The material feels very cheap and scratchy. The size runs way too small and looks nothing like the picture.')">👎 Mẫu Tiêu Cực (Negative)</button>
+        </div>
+
+        <form id="ecommForm">
+            <div class="form-group">
+                <label class="form-label">Nội dung Review (Tiếng Anh)</label>
+                <textarea id="reviewText" name="review_text" class="form-control" placeholder="Type or paste a product review here..." required>I love this sweater! It is so cozy and fits perfectly. Excellent purchase!</textarea>
+            </div>
+
+            <button type="submit" id="btnSubmit" class="btn-submit" style="margin-top: 1rem;">
+                Phân Tích Đánh Giá Sản Phẩm
+            </button>
+        </form>
+    </div>
+
+    <!-- Output Dashboard Section -->
+    <div>
+        <div id="resultCard" class="result-card">
+            <div id="resBadge" class="badge"></div>
+            <h3 id="resTitle" style="font-size: 1.35rem; margin-bottom: 0.5rem;"></h3>
+            <div id="resDetails" class="result-details"></div>
+        </div>
+
+        <div class="glass-card" style="margin-top: 1.5rem;">
+            <h4 style="font-weight: 700; margin-bottom: 0.75rem; color: var(--accent-purple);">Thông Tin Mô Hình NLP:</h4>
+            <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; padding-left: 1.25rem;">
+                <li>Trích xuất đặc trưng: <strong>TfidfVectorizer</strong> (Max 1000 n-gram features).</li>
+                <li>Mô hình phân loại: <strong>Logistic Regression / Classifier</strong>.</li>
+                <li>Điểm F1-Score: <strong>&gt; 0.93</strong>.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/ecomm.js') }}"></script>
+{% endblock %}
